@@ -15,7 +15,7 @@ function App() {
 
   const markOnBoard = (): number | undefined => {
 
-    let randomNumber = Math.floor(Math.random() * 75);
+    let randomNumber = Math.floor((Math.random() * 75) + 1)
 
     if (numbersOnBoard.includes(randomNumber)) return;
 
