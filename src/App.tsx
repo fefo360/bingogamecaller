@@ -14,6 +14,7 @@ function App() {
   console.log(`lastNumberCalled: ${lastNumberCalled} and numbersOnBoard: ${numbersOnBoard}`);
 
   const markOnBoard = (): number | undefined => {
+
     let randomNumber = Math.floor(Math.random() * 75);
 
     if (numbersOnBoard.includes(randomNumber)) return;
@@ -33,7 +34,7 @@ function App() {
   };
 
   return (
-    <div className="App flex justify-around">
+    <div className="App bg-slate- flex justify-between p-5">
       <NumberCaller
         boardNumbers={boardNumbers}
         markOnBoard={markOnBoard}
