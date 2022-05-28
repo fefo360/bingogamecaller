@@ -12,12 +12,12 @@ export default function BingoColumn({ letter, columnNumbers, range }: Props) {
 
   
   return (
-    <div >
-      <div id={letter} className="flex border text-5xl justify-center font-extrabold bg-blue-800 text-white">{letter}</div>
+    <div className="flex flex-col">
+      <div id={letter} className="flex border text-5xl justify-center items-center font-extrabold bg-blue-800 text-white md: text-4xl md:h-8 text-3xl">{letter}</div>
       {columnNumbers.slice(minNumber, maxNumber).map((number) => (
         <div
           key={number.number}
-          className={`${number.isOnBoard ? "text-white bg-blue-800 " : "text-gray-400 bg-blue-200"} font-extrabold text-5xl border border-white flex-1 w-32 `}
+          className={`${number.isOnBoard ? "text-white bg-blue-800 " : "text-gray-400 bg-blue-200"} font-extrabold text-5xl border border-white flex-1 w-32 md:text-2xl w-20 h-6`}
         >
           {number.number}
         </div>
