@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/bingogamecaller/static/css/main.e510fd1f.css",
+    "main.js": "/bingogamecaller/static/js/main.0952c062.js",
+    "static/js/787.32802f27.chunk.js": "/bingogamecaller/static/js/787.32802f27.chunk.js",
+    "index.html": "/bingogamecaller/index.html",
+    "main.e510fd1f.css.map": "/bingogamecaller/static/css/main.e510fd1f.css.map",
+    "main.0952c062.js.map": "/bingogamecaller/static/js/main.0952c062.js.map",
+    "787.32802f27.chunk.js.map": "/bingogamecaller/static/js/787.32802f27.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e510fd1f.css",
+    "static/js/main.0952c062.js"
+  ]
+}
