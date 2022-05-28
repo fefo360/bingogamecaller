@@ -5,6 +5,7 @@ import NumberCaller from "./components/NumberCaller";
 import { BingoNumber } from "./types/interfaces";
 import bingoNumberList from "./utils/bingoNumbersList";
 import delay from "./utils/delay";
+import sound from './assets/audio/marked.mp3'
 
 function App() {
   const [boardNumbers, setBoardNumbers] =
@@ -17,6 +18,13 @@ function App() {
 
   const startGame = async () => {
     while(numbersOnBoard.current.length < 75) {
+      const audio = new Audio(sound);
+      audio.play().catch((error) => {
+        console.log("error playing sound: ", error);
+        //  when an exception is played, the exception flow is followed
+      });
+  
+
       //doesnt work insde loop shows length of 0
       console.log(numbersOnBoard.current.length);
 
@@ -36,12 +44,12 @@ function App() {
     //add value to numbersOnBoard
     numbersOnBoard.current.push(randomNumber);
 
-    await delay(3000);
+    await delay(5000);
   }
   };
 
   return (
-    <div className="App bg-slate- flex justify-between p-5">
+    <div className="App bg-orange-200 h-screen flex justify-between p-5">
       <NumberCaller
         boardNumbers={boardNumbers}
         startGame={startGame}
