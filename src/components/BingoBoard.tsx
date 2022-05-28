@@ -11,7 +11,6 @@ export default function BingoBoard({ boardNumbers}: Props) {
 
   return (
     <div className="flex justify-center drop-shadow-lg">
-      {/* <button onClick={()=>handleClick(boardNumbers[13])}>Click</button> */}
       <BingoColumn letter="B" columnNumbers={boardNumbers} range={[1,15]} />
       <BingoColumn letter="I" columnNumbers={boardNumbers} range={[16,30]} />
       <BingoColumn letter="N" columnNumbers={boardNumbers} range={[31,45]} />

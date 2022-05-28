@@ -17,7 +17,7 @@ export default function BingoColumn({ letter, columnNumbers, range }: Props) {
       {columnNumbers.slice(minNumber, maxNumber).map((number) => (
         <div
           key={number.number}
-          className={`bg-blue-200 font-extrabold text-5xl border border-white flex-1 w-32 ${number.isOnBoard ? "bg-blue-800 text-white" : "text-gray-400"}`}
+          className={`${number.isOnBoard ? "text-white bg-blue-800 " : "text-gray-400 bg-blue-200"} font-extrabold text-5xl border border-white flex-1 w-32 `}
         >
           {number.number}
         </div>
