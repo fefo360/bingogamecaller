@@ -19,16 +19,18 @@ function App() {
 
 
   const startGame = async () => {
+    if(gameIsRunningRef.current) return 
     gameIsRunningRef.current = true;
     while (numbersOnBoard.current.length < 75) {
       let randomNumber = Math.floor(Math.random() * 75 + 1);
       console.log(gameIsRunningRef.current);
       
-      if (!gameIsRunningRef.current) continue
+      // if (!gameIsRunningRef.current) continue
       if (numbersOnBoard.current.includes(randomNumber)) continue;
       
       playBallSoundEffect(randomNumber);
-      
+            numbersOnBoard.current.push(randomNumber);
+
       setBoardNumbers((prevBoardNumbers) =>
       prevBoardNumbers.map((number) => {
         if (number.number === randomNumber)
@@ -36,10 +38,9 @@ function App() {
         return number;
       })
       );
-      await delay(5000);
-
+      
       //add value to numbersOnBoard
-      numbersOnBoard.current.push(randomNumber);
+      await delay(5000);
 
     }
   };
