@@ -41,6 +41,7 @@ function App() {
       clearInterval(loop);
       console.log('cleared interval');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameIsRunning]);
 
   const startGame = async () => {
