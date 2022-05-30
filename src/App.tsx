@@ -58,10 +58,10 @@ function App() {
 
   return (
     <div className="App bg-orange-200 h-screen flex justify-between p-3">
-      <Controls startGame={startGame} gameIsRunning={gameIsRunning}/>
       <NumberCaller
         calledNumber={boardNumbers[lastNumberCalled - 1]}
         startGame={startGame}
+        gameIsRunning={gameIsRunning}
       />
       <BingoBoard boardNumbers={boardNumbers} />
     </div>

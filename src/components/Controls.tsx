@@ -5,17 +5,20 @@ interface Props {
 }
 
 export default function Controls({startGame, gameIsRunning}:Props) {
+    const reloadPage = () => {
+        window.location.reload();
+    };
   return (
     <div>
         <button
-          className="border"
+          className={`border font-extrabold w-28 h-16 mr-2 ${gameIsRunning ? "bg-orange-400" : "bg-green-500"}`}
           onClick={startGame}
         >
           {gameIsRunning ? "PAUSE" : "START"}
         </button>
-        <button onClick={startGame} className="border" disabled={!gameIsRunning}> 
+        <button className={`border font-extrabold w-28 h-16 bg-red-500 ml-2`} onClick={reloadPage}>
           
-          {gameIsRunning ? "Toggle Status Game" : "Resume Game"}
+          RESET
         </button><br/>
       </div>
   )
