@@ -22,7 +22,6 @@ export default function NumberCaller({
 
   return (
     <div
-      onClick={startGame}
       className="flex flex-col items-center space-between flex-1 justify-evenly"
     >
       <div className="flex justify-center items-center border-8 border border-red-800 rounded-full w-96 h-96 text-9xl bg-red-800 font-extrabold drop-shadow-lg ">
