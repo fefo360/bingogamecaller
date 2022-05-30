@@ -5,7 +5,6 @@ import NumberCaller from "./components/NumberCaller";
 import { BingoNumber } from "./types/interfaces";
 import bingoNumberList from "./utils/bingoNumbersList";
 import playBallSoundEffect from "./utils/playBallSoundEffect";
-import Controls from "./components/Controls";
 
 function App() {
   const [boardNumbers, setBoardNumbers] =
@@ -37,7 +36,7 @@ function App() {
             return number;
           })
         );
-      }, 2000));
+      }, 5000));
     } else {
       clearInterval(loop);
       console.log('cleared interval');
@@ -62,6 +61,9 @@ function App() {
         calledNumber={boardNumbers[lastNumberCalled - 1]}
         startGame={startGame}
         gameIsRunning={gameIsRunning}
+        setGameIsRunning={setGameIsRunning}
+        setBoardNumbers={setBoardNumbers}
+        numbersOnBoard={numbersOnBoard}
       />
       <BingoBoard boardNumbers={boardNumbers} />
     </div>
