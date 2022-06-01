@@ -1,10 +1,10 @@
-import { BingoNumber } from "../types/interfaces";
+import { BINGO_BALL } from "../types/interfaces";
 
 interface Props {
   startGame: () => void;
   gameIsRunning: boolean;
   setGameIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
-  setBoardNumbers: React.Dispatch<React.SetStateAction<BingoNumber[]>>;
+  setBoardNumbers: React.Dispatch<React.SetStateAction<BINGO_BALL[]>>;
   numbersOnBoard: React.MutableRefObject<number[]>;
 }
 

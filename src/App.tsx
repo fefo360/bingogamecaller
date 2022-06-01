@@ -2,46 +2,45 @@ import "./App.css";
 import { useState, useRef, useEffect } from "react";
 import BingoBoard from "./components/BingoBoard";
 import NumberCaller from "./components/NumberCaller";
-import { BingoNumber } from "./types/interfaces";
-import bingoNumberList from "./utils/bingoNumbersList";
+import { BINGO_BALL } from "./types/interfaces";
+import bingoBallList from "./utils/bingoBallList";
 import playBallSoundEffect from "./utils/playBallSoundEffect";
 
 function App() {
   const [boardNumbers, setBoardNumbers] =
-    useState<BingoNumber[]>(bingoNumberList);
+    useState<BINGO_BALL[]>(bingoBallList);
   const numbersOnBoard = useRef<number[]>([]);
   const lastNumberCalled =
     numbersOnBoard.current[numbersOnBoard.current.length - 1];
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
-  const [loop, setLoop] = useState<NodeJS.Timer | undefined >(undefined);
-
-
+  const [loop, setLoop] = useState<NodeJS.Timer | undefined>(undefined);
 
   useEffect(() => {
-
     console.log(gameIsRunning);
     if (gameIsRunning) {
-      setLoop(setInterval(() => {
-        let randomNumber = Math.floor(Math.random() * 75 + 1);
+      setLoop(
+        setInterval(() => {
+          let randomNumber = Math.floor(Math.random() * 75 + 1);
 
-        randomNumber = uniqueRandomNumber();
+          randomNumber = uniqueRandomNumber();
 
-        playBallSoundEffect(randomNumber);
-        numbersOnBoard.current.push(randomNumber);
+          playBallSoundEffect(randomNumber);
+          numbersOnBoard.current.push(randomNumber);
 
-        setBoardNumbers((prevBoardNumbers) =>
-          prevBoardNumbers.map((number) => {
-            if (number.number === randomNumber)
-              return { ...number, isOnBoard: !number.isOnBoard };
-            return number;
-          })
-        );
-      }, 5000));
+          setBoardNumbers((prevBoardNumbers) =>
+            prevBoardNumbers.map((number) => {
+              if (number.number === randomNumber)
+                return { ...number, isOnBoard: !number.isOnBoard };
+              return number;
+            })
+          );
+        }, 5000)
+      );
     } else {
       clearInterval(loop);
-      console.log('cleared interval');
+      console.log("cleared interval");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameIsRunning]);
 
   const startGame = async () => {

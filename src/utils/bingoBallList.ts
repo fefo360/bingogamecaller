@@ -1,4 +1,4 @@
-const bingoNumbersList = [
+const BingoBallList = [
   { letter: "B", number: 1, isOnBoard: false },
   { letter: "B", number: 2, isOnBoard: false },
   { letter: "B", number: 3, isOnBoard: false },
@@ -76,4 +76,4 @@ const bingoNumbersList = [
   { letter: "O", number: 75, isOnBoard: false },
 ];
 
-export default bingoNumbersList;
+export default BingoBallList;

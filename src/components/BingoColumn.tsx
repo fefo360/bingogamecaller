@@ -1,8 +1,8 @@
-import { BingoNumber } from "../types/interfaces";
+import { BINGO_BALL } from "../types/interfaces";
 
 export interface Props {
   letter: string;
-  columnNumbers: BingoNumber[];
+  columnNumbers: BINGO_BALL[];
   range: number[];
 }
 
