@@ -57,7 +57,7 @@ function App() {
   };
 
   return (
-    <div className="App bg-orange-200 h-screen flex justify-between p-3">
+    <div className="App bg-orange-200 h-screen flex flex-col p-2 sm:flex-row">
       <NumberCaller
         calledNumber={boardNumbers[lastNumberCalled - 1]}
         startGame={startGame}

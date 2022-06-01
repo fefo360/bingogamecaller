@@ -27,9 +27,9 @@ export default function NumberCaller({
   //function to reset browser
 
   return (
-    <div className="flex flex-col items-center space-between flex-1 justify-evenly">
-      <div className="flex justify-center items-center border-8 border border-red-800 rounded-full w-96 h-96 text-9xl bg-red-800 font-extrabold drop-shadow-lg ">
-        <div className="ring-white ring-offset-2 ring-4 border-8 border border-red-800 w-72 h-72 rounded-full bg-white">
+    <div className="flex flex-1 flex-col items-center justify-evenly">
+      <div className="flex h-52 w-52 items-center justify-center  rounded-full border-8 border border-red-800 bg-red-800 text-7xl font-extrabold drop-shadow-lg lg:h-96 lg:w-96 lg:text-9xl">
+        <div className="ring-offset- h-40 w-40 rounded-full border-4 lg:border-8 border border-red-800 bg-white ring-1 lg:ring-4 ring-white lg:h-72 lg:w-72">
           <div>{LastNumberCalled.letter}</div>
           <div>{LastNumberCalled.number}</div>
         </div>
