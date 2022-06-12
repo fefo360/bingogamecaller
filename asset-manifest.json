@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/bingogamecaller/static/css/main.5855b48f.css",
-    "main.js": "/bingogamecaller/static/js/main.4e070cea.js",
+    "main.css": "/bingogamecaller/static/css/main.a4791d62.css",
+    "main.js": "/bingogamecaller/static/js/main.0b51f045.js",
     "static/js/787.32802f27.chunk.js": "/bingogamecaller/static/js/787.32802f27.chunk.js",
     "static/media/24.wav": "/bingogamecaller/static/media/24.6edbec8261c89f9c7e0b.wav",
     "static/media/27.wav": "/bingogamecaller/static/media/27.931dd531207943604404.wav",
@@ -79,12 +79,12 @@
     "static/media/5.wav": "/bingogamecaller/static/media/5.63fcb78bd02309c9c76d.wav",
     "static/media/3.wav": "/bingogamecaller/static/media/3.c64f429ceb80da1e0c10.wav",
     "index.html": "/bingogamecaller/index.html",
-    "main.5855b48f.css.map": "/bingogamecaller/static/css/main.5855b48f.css.map",
-    "main.4e070cea.js.map": "/bingogamecaller/static/js/main.4e070cea.js.map",
+    "main.a4791d62.css.map": "/bingogamecaller/static/css/main.a4791d62.css.map",
+    "main.0b51f045.js.map": "/bingogamecaller/static/js/main.0b51f045.js.map",
     "787.32802f27.chunk.js.map": "/bingogamecaller/static/js/787.32802f27.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5855b48f.css",
-    "static/js/main.4e070cea.js"
+    "static/css/main.a4791d62.css",
+    "static/js/main.0b51f045.js"
   ]
 }
