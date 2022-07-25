@@ -1,11 +1,11 @@
-const numberColumnList = (letter: string, range: number[]) => {
-    let baseNumber = range[0]
-    let maxNumber = range[1]
+import { NUMBER_RANGE } from "../types/interfaces"
+
+const numberColumnList = (range: NUMBER_RANGE) => {
     let numberList = []
 
-    while(baseNumber <= maxNumber){
-        numberList.push(baseNumber)
-        baseNumber++
+    while(range.start <= range.end){
+        numberList.push(range.start)
+        range.start++
     }
     console.log(numberList);
     return numberList

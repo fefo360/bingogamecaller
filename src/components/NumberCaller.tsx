@@ -26,8 +26,8 @@ export default function NumberCaller({
 
   return (
     <div className="flex flex-1 flex-col items-center justify-evenly">
-      <div className="flex h-52 w-52 items-center justify-center  rounded-full border-8 border border-red-800 bg-red-800 text-7xl font-extrabold drop-shadow-lg lg:h-96 lg:w-96 lg:text-9xl">
-        <div className="ring-offset- h-40 w-40 rounded-full border-4 border border-red-800 bg-white ring-1 ring-white lg:h-72 lg:w-72 lg:border-8 lg:ring-4">
+      <div className="flex h-52 w-52 items-center justify-center  rounded-full border-8 border border-red-800 bg-red-800 text-7xl font-extrabold drop-shadow-lg md:h-96 md:w-96 md:text-9xl">
+        <div className="ring-offset- h-40 w-40 rounded-full border-4 border border-red-800 bg-white ring-1 ring-white md:h-72 md:w-72 md:border-8 md:ring-4">
           <div>{LastNumberCalled.letter}</div>
           <div>{LastNumberCalled.number}</div>
         </div>
