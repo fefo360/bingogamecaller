@@ -14,6 +14,7 @@ function App() {
     numbersOnBoard.current[numbersOnBoard.current.length - 1];
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
   const [loop, setLoop] = useState<NodeJS.Timer | undefined>(undefined);
+  const [waitTime, setWaitTime] = useState<number>(5000)
 
   useEffect(() => {
     console.log(gameIsRunning);
@@ -34,7 +35,7 @@ function App() {
               return number;
             })
           );
-        }, 5000)
+        }, waitTime)
       );
     } else {
       clearInterval(loop);
@@ -64,6 +65,8 @@ function App() {
         setGameIsRunning={setGameIsRunning}
         setBoardNumbers={setBoardNumbers}
         numbersOnBoard={numbersOnBoard}
+        waitTime={waitTime}
+        setWaitTime={setWaitTime}
       />
       <BingoBoard boardNumbers={boardNumbers} />
     </div>

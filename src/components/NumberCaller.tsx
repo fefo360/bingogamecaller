@@ -8,6 +8,8 @@ interface Props {
   setGameIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
   setBoardNumbers: React.Dispatch<React.SetStateAction<BINGO_BALL[]>>;
   numbersOnBoard: React.MutableRefObject<number[]>;
+  waitTime: number;
+  setWaitTime: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function NumberCaller({
@@ -17,6 +19,8 @@ export default function NumberCaller({
   setGameIsRunning,
   setBoardNumbers,
   numbersOnBoard,
+  waitTime,
+  setWaitTime
 }: Props) {
   const LastNumberCalled = calledNumber ?? {
     letter: "F",
@@ -38,6 +42,8 @@ export default function NumberCaller({
         setGameIsRunning={setGameIsRunning}
         setBoardNumbers={setBoardNumbers}
         numbersOnBoard={numbersOnBoard}
+        waitTime={waitTime}
+        setWaitTime={setWaitTime}
       />
     </div>
   );
