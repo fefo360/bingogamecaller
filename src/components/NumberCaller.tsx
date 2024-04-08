@@ -28,6 +28,8 @@ export default function NumberCaller({
     isOnBoard: false,
   };
 
+  
+
   return (
     <div className="flex flex-1 flex-col items-center justify-evenly">
       <div className="flex h-52 w-52 items-center justify-center  rounded-full border-8 border border-red-800 bg-red-800 text-7xl font-extrabold drop-shadow-lg md:h-96 md:w-96 md:text-9xl">
