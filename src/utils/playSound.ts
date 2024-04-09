@@ -1,13 +1,30 @@
 // Define an array to store preloaded audio elements
 const preloadedAudio: any[] = [];
 
-const preloadAudioFiles = () => {
+const preloadAudioFiles = async () => {
   for (let i = 1; i <= 75; i++) {
-    const audioFile = require(`../assets/audio/${i}.wav`);
-    const audio = new Audio(audioFile);
-    audio.preload = 'auto';
-    // Store the preloaded audio element in the array
-    preloadedAudio.push(audio);
+    try {
+      // Dynamically import the audio file
+      const audioModule = await import(`../assets/audio/${i}.wav`);
+      const audioFile = audioModule.default;
+      
+      // Create an audio element
+      const audio = new Audio(audioFile);
+      
+      // Preload the audio file
+      audio.preload = 'auto';
+      
+      // Wait for the audio to be fully loaded and buffered
+      await new Promise((resolve, reject) => {
+        audio.addEventListener('canplaythrough', resolve);
+        audio.addEventListener('error', reject);
+      });
+
+      // Store the preloaded audio element in the array
+      preloadedAudio.push(audio);
+    } catch (error) {
+      console.error(`Error preloading audio file ${i}:`, error);
+    }
   }
 };
 

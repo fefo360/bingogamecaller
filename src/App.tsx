@@ -4,7 +4,8 @@ import BingoBoard from "./components/BingoBoard";
 import NumberCaller from "./components/NumberCaller";
 import { BINGO_BALL } from "./types/interfaces";
 import bingoBallList from "./utils/bingoBallList";
-import playBallSoundEffect from "./utils/playBallSoundEffect";
+// import playBallSoundEffect from "./utils/playBallSoundEffect";
+import playBallSoundEffect from "./utils/playSound";
 
 function App() {
   const [boardNumbers, setBoardNumbers] =
@@ -15,6 +16,10 @@ function App() {
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
   const [loop, setLoop] = useState<NodeJS.Timer | undefined>(undefined);
   const [waitTime, setWaitTime] = useState<number>(5000)
+
+  // useEffect(()=>{
+  //   preloadAudioFiles()
+  // },[])
 
   useEffect(() => {
     console.log(gameIsRunning);
