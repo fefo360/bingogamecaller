@@ -1,56 +1,78 @@
-// Define an array to store preloaded audio elements
-const preloadedAudio: any[] = [];
+const preloadedAudio = new Map<number, HTMLAudioElement>();
+let activeAudio: HTMLAudioElement | null = null;
+let playbackToken = 0;
+let audioUnlocked = false;
 
-const preloadAudioFiles = async () => {
-  for (let i = 1; i <= 75; i++) {
-    try {
-      // Dynamically import the audio file
-      const audioModule = await import(`../assets/audio/${i}.wav`);
-      const audioFile = audioModule.default;
-      
-      // Create an audio element
-      const audio = new Audio(audioFile);
-      
-      // Preload the audio file
-      audio.preload = 'auto';
-      
-      // Wait for the audio to be fully loaded and buffered
-      await new Promise((resolve, reject) => {
-        audio.addEventListener('canplaythrough', resolve);
-        audio.addEventListener('error', reject);
-      });
+const getAudio = (soundNumber: number) => {
+  if (!preloadedAudio.has(soundNumber)) {
+    const sound = require(`../assets/audio/${soundNumber}.wav`);
+    const audio = new Audio(sound);
+    audio.preload = "auto";
+    preloadedAudio.set(soundNumber, audio);
+  }
 
-      // Store the preloaded audio element in the array
-      preloadedAudio.push(audio);
-    } catch (error) {
-      console.error(`Error preloading audio file ${i}:`, error);
+  return preloadedAudio.get(soundNumber);
+};
+
+export const unlockAudioPlayback = async () => {
+  if (audioUnlocked) {
+    return true;
+  }
+
+  try {
+    const audio = getAudio(1);
+
+    if (!audio) {
+      return false;
     }
+
+    audio.muted = true;
+    audio.currentTime = 0;
+
+    await audio.play();
+
+    audio.pause();
+    audio.currentTime = 0;
+    audio.muted = false;
+    audioUnlocked = true;
+
+    return true;
+  } catch (error) {
+    console.log("Error unlocking audio playback: ", error);
+    return false;
   }
 };
 
-// Call the preload function when your application starts or when the relevant component mounts
-// For example, in your main App component or in a useEffect hook in your component
-// For class-based components, you can call it in componentDidMount lifecycle method
-preloadAudioFiles();
-
-
-const playBallSoundEffect = (soundNumber: number) => {
+const playBallSoundEffect = async (soundNumber: number) => {
   try {
-    // Get the preloaded audio element corresponding to the soundNumber
-    const audio = preloadedAudio[soundNumber - 1];
+    const audio = getAudio(soundNumber);
 
-    // Check if the audio element exists
-    if (audio) {
-      // Reset the currentTime property to 0 to restart the playback
-      audio.currentTime = 0;
-      // Play the audio
-      audio.play();
-    } else {
+    if (!audio) {
       console.log(`Audio element for sound number ${soundNumber} not found`);
+      return;
+    }
+
+    playbackToken += 1;
+    const currentToken = playbackToken;
+
+    if (activeAudio && activeAudio !== audio) {
+      activeAudio.pause();
+      activeAudio.currentTime = 0;
+    }
+
+    audio.pause();
+    audio.currentTime = 0;
+    activeAudio = audio;
+
+    await audio.play();
+
+    if (currentToken !== playbackToken) {
+      audio.pause();
+      audio.currentTime = 0;
     }
   } catch (error) {
     console.log("Error playing sound: ", error);
   }
-}
+};
 
 export default playBallSoundEffect;

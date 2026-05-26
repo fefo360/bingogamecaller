@@ -4,61 +4,78 @@ import BingoBoard from "./components/BingoBoard";
 import NumberCaller from "./components/NumberCaller";
 import { BINGO_BALL } from "./types/interfaces";
 import bingoBallList from "./utils/bingoBallList";
-// import playBallSoundEffect from "./utils/playBallSoundEffect";
-import playBallSoundEffect from "./utils/playSound";
+import playBallSoundEffect, { unlockAudioPlayback } from "./utils/playSound";
 
 function App() {
   const [boardNumbers, setBoardNumbers] =
     useState<BINGO_BALL[]>(bingoBallList);
   const numbersOnBoard = useRef<number[]>([]);
+  const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastNumberCalled =
     numbersOnBoard.current[numbersOnBoard.current.length - 1];
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
-  const [loop, setLoop] = useState<NodeJS.Timer | undefined>(undefined);
-  const [waitTime, setWaitTime] = useState<number>(5000)
+  const [waitTime, setWaitTime] = useState<number>(5000);
 
-  // useEffect(()=>{
-  //   preloadAudioFiles()
-  // },[])
-
-  useEffect(() => {
-    console.log(gameIsRunning);
-    if (gameIsRunning) {
-      setLoop(
-        setInterval(() => {
-          let randomNumber = Math.floor(Math.random() * 75 + 1);
-
-          randomNumber = uniqueRandomNumber();
-
-          playBallSoundEffect(randomNumber);
-          numbersOnBoard.current.push(randomNumber);
-
-          setBoardNumbers((prevBoardNumbers) =>
-            prevBoardNumbers.map((number) => {
-              if (number.number === randomNumber)
-                return { ...number, isOnBoard: !number.isOnBoard };
-              return number;
-            })
-          );
-        }, waitTime)
-      );
-    } else {
-      clearInterval(loop);
-      console.log("cleared interval");
+  const clearLoopTimeout = () => {
+    if (loopTimeoutRef.current) {
+      clearTimeout(loopTimeoutRef.current);
+      loopTimeoutRef.current = null;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameIsRunning]);
-
-  const startGame = async () => {
-    setGameIsRunning((prev) => !prev);
   };
 
   const uniqueRandomNumber = (): number => {
     let randomNumber = Math.floor(Math.random() * 75 + 1);
-    if (numbersOnBoard.current.includes(randomNumber)) {
-      return uniqueRandomNumber();
+    while (numbersOnBoard.current.includes(randomNumber)) {
+      randomNumber = Math.floor(Math.random() * 75 + 1);
     }
     return randomNumber;
+  };
+
+  useEffect(() => {
+    clearLoopTimeout();
+
+    if (!gameIsRunning) {
+      return;
+    }
+
+    const scheduleNextCall = () => {
+      loopTimeoutRef.current = setTimeout(() => {
+        if (numbersOnBoard.current.length >= bingoBallList.length) {
+          setGameIsRunning(false);
+          return;
+        }
+
+        const randomNumber = uniqueRandomNumber();
+
+        playBallSoundEffect(randomNumber);
+        numbersOnBoard.current.push(randomNumber);
+
+        setBoardNumbers((prevBoardNumbers) =>
+          prevBoardNumbers.map((number) => {
+            if (number.number === randomNumber) {
+              return { ...number, isOnBoard: true };
+            }
+            return number;
+          })
+        );
+
+        scheduleNextCall();
+      }, waitTime);
+    };
+
+    scheduleNextCall();
+
+    return () => {
+      clearLoopTimeout();
+    };
+  }, [gameIsRunning, waitTime]);
+
+  const startGame = async () => {
+    if (!gameIsRunning) {
+      await unlockAudioPlayback();
+    }
+
+    setGameIsRunning((prev) => !prev);
   };
 
   return (
