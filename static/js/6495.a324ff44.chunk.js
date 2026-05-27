@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkbingo_game_caller=self.webpackChunkbingo_game_caller||[]).push([[6495],{6495:function(e,a,b){e.exports=b.p+"static/media/57.9b770b6e8bb2f2b1afda.wav"}}]);
