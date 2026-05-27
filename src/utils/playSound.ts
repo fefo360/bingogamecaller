@@ -1,17 +1,30 @@
-const preloadedAudio = new Map<number, HTMLAudioElement>();
-let activeAudio: HTMLAudioElement | null = null;
-let playbackToken = 0;
-let audioUnlocked = false;
+const audioSources = new Map<number, string>();
+const playerAudio = new Audio();
 
-const getAudio = (soundNumber: number) => {
-  if (!preloadedAudio.has(soundNumber)) {
+let audioUnlocked = false;
+let preloaded = false;
+
+playerAudio.preload = "auto";
+
+const getAudioSource = (soundNumber: number) => {
+  if (!audioSources.has(soundNumber)) {
     const sound = require(`../assets/audio/${soundNumber}.wav`);
-    const audio = new Audio(sound);
-    audio.preload = "auto";
-    preloadedAudio.set(soundNumber, audio);
+    audioSources.set(soundNumber, sound);
   }
 
-  return preloadedAudio.get(soundNumber);
+  return audioSources.get(soundNumber);
+};
+
+const preloadAudioSources = () => {
+  if (preloaded) {
+    return;
+  }
+
+  for (let i = 1; i <= 75; i += 1) {
+    getAudioSource(i);
+  }
+
+  preloaded = true;
 };
 
 export const unlockAudioPlayback = async () => {
@@ -20,56 +33,50 @@ export const unlockAudioPlayback = async () => {
   }
 
   try {
-    const audio = getAudio(1);
+    preloadAudioSources();
 
-    if (!audio) {
+    const source = getAudioSource(1);
+
+    if (!source) {
       return false;
     }
 
-    audio.muted = true;
-    audio.currentTime = 0;
+    playerAudio.src = source;
+    playerAudio.muted = true;
+    playerAudio.currentTime = 0;
 
-    await audio.play();
+    await playerAudio.play();
 
-    audio.pause();
-    audio.currentTime = 0;
-    audio.muted = false;
+    playerAudio.pause();
+    playerAudio.currentTime = 0;
+    playerAudio.muted = false;
     audioUnlocked = true;
 
     return true;
   } catch (error) {
     console.log("Error unlocking audio playback: ", error);
+    playerAudio.muted = false;
     return false;
   }
 };
 
 const playBallSoundEffect = async (soundNumber: number) => {
   try {
-    const audio = getAudio(soundNumber);
+    const source = getAudioSource(soundNumber);
 
-    if (!audio) {
-      console.log(`Audio element for sound number ${soundNumber} not found`);
+    if (!source) {
+      console.log(`Audio source for sound number ${soundNumber} not found`);
       return;
     }
 
-    playbackToken += 1;
-    const currentToken = playbackToken;
-
-    if (activeAudio && activeAudio !== audio) {
-      activeAudio.pause();
-      activeAudio.currentTime = 0;
+    if (playerAudio.src !== source) {
+      playerAudio.src = source;
     }
 
-    audio.pause();
-    audio.currentTime = 0;
-    activeAudio = audio;
+    playerAudio.pause();
+    playerAudio.currentTime = 0;
 
-    await audio.play();
-
-    if (currentToken !== playbackToken) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
+    await playerAudio.play();
   } catch (error) {
     console.log("Error playing sound: ", error);
   }
