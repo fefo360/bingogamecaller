@@ -13,6 +13,11 @@ function App() {
   const loopTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastNumberCalled =
     numbersOnBoard.current[numbersOnBoard.current.length - 1];
+  const recentCalledBalls = numbersOnBoard.current
+    .slice(-5)
+    .reverse()
+    .map((calledNumber) => boardNumbers[calledNumber - 1])
+    .filter((ball): ball is BINGO_BALL => Boolean(ball));
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
   const [waitTime, setWaitTime] = useState<number>(5000);
 
@@ -82,6 +87,7 @@ function App() {
     <div className="App flex h-screen flex-col p-2 sm:flex-row">
       <NumberCaller
         calledNumber={boardNumbers[lastNumberCalled - 1]}
+        recentCalledBalls={recentCalledBalls}
         startGame={startGame}
         gameIsRunning={gameIsRunning}
         setGameIsRunning={setGameIsRunning}

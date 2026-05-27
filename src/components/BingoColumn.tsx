@@ -16,7 +16,7 @@ export default function BingoColumn({
     <div className="flex flex-col">
       <div
         id={letter}
-        className="flex items-center justify-center border bg-blue-800 text-2xl font-extrabold text-white lg:text-5xl xl:h-14 xl:w-32"
+        className="flex h-8 items-center justify-center border bg-blue-800 text-center text-xl font-extrabold leading-none text-white md:h-10 md:text-2xl lg:h-12 lg:text-4xl xl:h-14 xl:w-32"
       >
         {letter}
       </div>
@@ -27,7 +27,7 @@ export default function BingoColumn({
             number.isOnBoard
               ? "bg-blue-800 text-white "
               : "bg-blue-200 text-gray-400"
-          } h-6  w-20 flex-1 border border-white md:text-2xl font-extrabold lg:text-5xl xl:w-32`}
+          } flex h-7 w-20 flex-1 items-center justify-center border border-white text-center text-base font-extrabold leading-none tabular-nums md:h-10 md:text-2xl lg:h-12 lg:text-4xl xl:h-14 xl:w-32`}
         >
           {number.number}
         </div>
